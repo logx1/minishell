@@ -6,7 +6,7 @@
 /*   By: abdelmajid <abdelmajid@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 13:34:01 by abdelmajid        #+#    #+#             */
-/*   Updated: 2023/09/10 13:34:11 by abdelmajid       ###   ########.fr       */
+/*   Updated: 2023/09/10 13:59:51 by abdelmajid       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void execline(char ***cmd, char **env)
 {
 	int fd[2];
+    int status;
 	pid_t pid;
 	int fdd = 0;				/* Backup */
 
@@ -35,7 +36,7 @@ void execline(char ***cmd, char **env)
 			exit(1);
 		}
 		else {
-			wait(NULL); 		/* Collect childs */
+			waitpid(pid, &status, 0); 		/* Collect childs */
 			close(fd[1]);
 			fdd = fd[0];
 			cmd++;
